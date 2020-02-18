@@ -5,11 +5,9 @@ import PropTypes from 'prop-types';
 
 export const Artists = ({ artists }) => {
   const artistsElements = artists.map(artist => {
-    console.log(artist.id);
     return (
-
       <li key={artist.id} >
-        <Link to={`/artists/${artist.id}`}>
+        <Link to={`/artists/${artist.name}/${artist.id}`}>
           <Artist name={artist.name} />
         </Link>
       </li>
