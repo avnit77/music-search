@@ -1,12 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export const Song = () => {
-
+export const Song = ({ title }) => {
 
   return (
     <>
-      <h1>This is Song</h1>
-      <p>Lyrics go here</p>
+      <h3>{title}</h3>
     </>
   );
 };
+
+Song.propTypes = {
+  title: PropTypes.string.isRequired,
+};
+
+export default Song;

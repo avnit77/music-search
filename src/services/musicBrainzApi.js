@@ -8,3 +8,12 @@ export const getReleases = (artistId) => {
     .then(res => res.json());
 };
 
+export const getSongs = (releaseId) => {
+  return fetch(`http://musicbrainz.org/ws/2/recording?release=${releaseId}&fmt=json`)
+    .then(res => res.json());
+};
+
+export const getLyrics = (artist, title) => {
+  return fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`)
+    .then(res => res.json());
+};

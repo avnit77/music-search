@@ -6,6 +6,8 @@ import {
 } from 'react-router-dom';
 import { ArtistSearch } from './Artist/ArtistSearch';
 import { Releases } from './Release/Releases';
+import { Songs } from './Song/Songs';
+import { Lyrics } from './Song/SongLyrics';
 
 export default function App() {
 
@@ -14,6 +16,8 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={ArtistSearch}/>
         <Route path="/artists/:artist/:artistId" component={Releases} />
+        <Route path="/songs/:artist/:releaseId" component={Songs}  />
+        <Route path="/lyrics/:artist/:title" component={Lyrics} />
       </Switch>
     </Router>
   );

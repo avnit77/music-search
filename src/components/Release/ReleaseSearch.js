@@ -21,4 +21,3 @@ export const ReleaseSearch = () => {
   );
 };
 
-export default ReleaseSearch;
