@@ -1,6 +1,5 @@
 import React from 'react';
 import { Artist } from './Artist';
-// import { useArtists } from '../../hooks/useArtists';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -8,7 +7,7 @@ export const Artists = ({ artists }) => {
   const artistsElements = artists.map(artist => {
     console.log(artist.id);
     return (
-  
+
       <li key={artist.id} >
         <Link to={`/artists/${artist.id}`}>
           <Artist name={artist.name} />

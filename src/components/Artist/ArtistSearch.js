@@ -7,12 +7,12 @@ export const ArtistSearch = () => {
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
-  
+
   return (
     <>
       <form onSubmit={handleSearch}>
         <input type="text" placeholder="artist" value={searchTerm} onChange={handleChange}/>
-        <button>SEARCH</button>
+        <button>Search By Artist</button>
       </form>
       <Artists artists={artists} />
     </>
