@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useArtists } from '../../hooks/useArtists';
+import { useArtists } from '../../../hooks/useArtists';
 import { Artists } from './Artists';
-import Header from '../common/Header';
 
 export const ArtistSearch = () => {
   const { handleSearch, searchTerm, setSearchTerm, artists } = useArtists();
@@ -11,11 +10,12 @@ export const ArtistSearch = () => {
 
   return (
     <>
-      <Header />
+    <div className="search">
       <form onSubmit={handleSearch}>
         <input type="text" placeholder="artist" value={searchTerm} onChange={handleChange}/>
         <button>Search By Artist</button>
       </form>
+      </div>
       <Artists artists={artists} />
     </>
   );

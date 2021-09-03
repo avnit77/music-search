@@ -1,5 +1,5 @@
 import React from 'react';
-import { useReleases } from '../../hooks/useReleases';
+import { useReleases } from '../../../hooks/useReleases';
 import Releases from './Releases';
 
 export const ReleaseSearch = () => {

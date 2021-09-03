@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getLyrics } from '../../services/musicBrainzApi';
+import { getLyrics } from '../../../services/musicBrainzApi';
 
 export const Lyrics = ({ match }) => {
   const [lyrics, setLyrics] = useState('');

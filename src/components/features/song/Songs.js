@@ -1,6 +1,6 @@
 import React from 'react';
 import Song from './Song';
-import { useSongs } from '../../hooks/useSongs';
+import { useSongs } from '../../../hooks/useSongs';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 

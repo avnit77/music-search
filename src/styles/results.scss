@@ -1,0 +1,37 @@
+
+.results {
+    text-align: center;
+    background-color: #edd5ba;
+    min-height: 100vh;
+    border-top: 1px solid black;
+
+    h2 {
+        font-family: monospace;
+        font-size: 3rem;
+        padding: 3rem;
+        text-decoration: underline;
+    }
+
+    ul {
+        width: 80vw;
+        margin: auto;
+        text-align: left;
+
+        li {
+            border-bottom: 2px solid black;
+            padding: 1rem .25rem 1rem .25rem;
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+
+        }
+
+        h1 {
+            font-family: monospace;
+            font-size: 2.5rem;        
+        }
+    }
+
+}

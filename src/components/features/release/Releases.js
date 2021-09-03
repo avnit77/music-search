@@ -1,6 +1,6 @@
 import React from 'react';
 import Release from './Release';
-import { useReleases } from '../../hooks/useReleases';
+import { useReleases } from '../../../hooks/useReleases';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
