@@ -1,15 +1,17 @@
+const API = 'http://musicbrainz.org/ws/2/'
+
 export const getArtist = (name) => {
-  return fetch(`http://musicbrainz.org/ws/2/artist?query=${name}&fmt=json&limit=25`)
+  return fetch(`${API}artist?query=${name}&fmt=json&limit=25`)
     .then(res => res.json());
 };
 
 export const getReleases = (artistId) => {
-  return fetch(`http://musicbrainz.org/ws/2/release?artist=${artistId}&fmt=json`)
+  return fetch(`${API}release?artist=${artistId}&fmt=json`)
     .then(res => res.json());
 };
 
 export const getSongs = (releaseId) => {
-  return fetch(`http://musicbrainz.org/ws/2/recording?release=${releaseId}&fmt=json`)
+  return fetch(`${API}recording?release=${releaseId}&fmt=json`)
     .then(res => res.json());
 };
 

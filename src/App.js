@@ -4,10 +4,10 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import { ArtistSearch } from './Artist/ArtistSearch';
-import { Releases } from './Release/Releases';
-import { Songs } from './Song/Songs';
-import { Lyrics } from './Song/SongLyrics';
+import { ArtistSearch } from './components/Artist/ArtistSearch';
+import { Releases } from './components/Release/Releases';
+import { Songs } from './components/Song/Songs';
+import { Lyrics } from './components/Song/SongLyrics';
 
 export default function App() {
 
