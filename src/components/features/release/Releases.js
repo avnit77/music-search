@@ -3,6 +3,8 @@ import Release from './Release';
 import { useReleases } from '../../../hooks/useReleases';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Results from '../../elem/Results'
+
 
 export const Releases = ({ match }) => {
 
@@ -10,7 +12,7 @@ export const Releases = ({ match }) => {
 
   const releaseElements = releases.map(release => (
 
-    <li key={release.id} >
+    <li key={release.id} className="release">
       <Link to={`/songs/${match.params.artist}/${release.id}`}>
         <Release title={release.title} id={release.id} date={release.date}/>
       </Link>
@@ -19,12 +21,8 @@ export const Releases = ({ match }) => {
 
 
   return (
-    <main>
-      <h2>{match.params.artist}</h2>
-      <ul>
-        {releaseElements}
-      </ul>
-    </main>
+    <Results items={releaseElements} title={match.params.artist}/>
+
   );
 };
 

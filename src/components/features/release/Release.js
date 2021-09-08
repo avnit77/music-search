@@ -1,16 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 
 export const Release = ({ title, id, date }) => {
 
+const [className, setClassName] = useState(null)
+
+
   return (
 
-    <div>
-      <div>
-        <img src={`http://coverartarchive.org/release/${id}/front`} onError={(e)=>{e.target.onerror = null; e.target.src = '../../../src/assets/default.png';}} />
+    <div className="results">
+      <div className={`container ${className}`}>
+        <img className="album" src={`http://coverartarchive.org/release/${id}/front`} onError={(e)=>{setClassName("defaultImage"); e.target.onerror = null;}} />
       </div>
-      <div>
+      <div className="description">
         <h1>{title}</h1>
         <p> - {date.slice(0, 4)} - </p>
       </div>
