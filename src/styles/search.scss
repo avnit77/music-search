@@ -1,10 +1,24 @@
+.noResults {
+    position: fixed;
+    left: 38%;
+    top: 45%;
+    transition-duration: 2s;
+    input {
+        height: 10vh;
+        width: 25vw;
+        font-size: large;
+    }
+}
 .search {
     display: flex;
-    background-color: whitesmoke;
-    height: 10vh;
     justify-content: flex-end;
     align-items: center;
     padding-right: 2rem;
+    position: fixed;
+    top: 20vh;
+    left: 80%;
+    transition-duration: 1s;
+
 
     form {
         display: flex;
@@ -12,15 +26,19 @@
     }
 
     input {
-        font-family: monospace;
-        font-size: 2rem;
-        border-radius: .25rem;
+        height: 5vh;
+        font-size: medium;
     }
+
 
     button {
         font-family: monospace;
-        font-size: 1.5rem;
         margin-left: 1.5rem;
         border-radius: .25rem;
     }
+}
+
+input {
+    font-family: monospace;
+    border-radius: .25rem;
 }

@@ -1,37 +1,96 @@
 
 .results {
     text-align: center;
-    background-color: #edd5ba;
-    min-height: 100vh;
-    border-top: 1px solid black;
+    height: 100%;
+    // min-height: 100vh;
+    // border-top: 1px solid black;
 
     h2 {
         font-family: monospace;
-        font-size: 3rem;
-        padding: 3rem;
+        padding: 1%;
         text-decoration: underline;
+        height: 10%;
     }
 
     ul {
-        width: 80vw;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100vw;
         margin: auto;
+        justify-content: center;
+        overflow-wrap: break-word;
         text-align: left;
+        overflow: scroll;
+        height: 90%;
+        -ms-overflow-style: none; 
+        scrollbar-width: none; 
+        &::-webkit-scrollbar {
+            display: none;
+          }
 
         li {
             border-bottom: 2px solid black;
-            padding: 1rem .25rem 1rem .25rem;
+            padding: 1rem;
+            width: 51vw;
+            &.release {
+                width: 24vw;
+                min-width: 300px;
+                min-height: 400px;
+            }
+
+            
 
             a {
                 text-decoration: none;
                 color: black;
+            }
+            .description {
+                border: 1px solid black;
             }
 
         }
 
         h1 {
             font-family: monospace;
-            font-size: 2.5rem;        
+            
+        }
+        p {
+            font-family: monospace;
+            overflow-wrap: unset;
+            margin-top: 1rem;
+            margin-bottom: .5rem;
+        }
+
+    }
+
+    .container {
+        margin: auto;
+        text-align: center;
+        overflow: hidden;
+        
+        &.defaultImage {
+            height: 75%;
+            margin-bottom: 5px;
+            background-image: url('../assets/default.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            border: 2px solid black;
+            .description {
+                height: 25%;
+
+            }
+
+            img {
+                display: none;
+            }
         }
     }
+
+    img {
+        width: inherit;
+        height: initial;
+        border: 2px solid black;
+    }
+
 
 }
