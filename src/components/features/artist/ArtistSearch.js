@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
-import { useArtists } from '../../../hooks/useArtists';
+import React, {useContext} from 'react';
 import { Artists } from './Artists';
+import { ResultsContext } from '../../wrappers/ResultsContext'
 
 export const ArtistSearch = () => {
-  const { handleSearch, searchTerm, setSearchTerm, artists } = useArtists();
+
+  const {setSearchTerm, artists} = useContext(ResultsContext)  
+
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
   return (
     <>
-    <div className="search">
-      <form onSubmit={handleSearch}>
-        <input type="text" placeholder="artist" value={searchTerm} onChange={handleChange}/>
-        <button>Search By Artist</button>
-      </form>
+    <div className={!artists.length ? "noResults" : "search"}>
+        <input type="text" placeholder="Search By Artist" onChange={handleChange}/>
       </div>
       <Artists artists={artists} />
     </>

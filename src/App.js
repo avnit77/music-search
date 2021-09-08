@@ -4,20 +4,25 @@ import { ArtistSearch } from "./components/features/artist/ArtistSearch";
 import { Releases } from "./components/features/release/Releases";
 import { Songs } from "./components/features/song/Songs";
 import { Lyrics } from "./components/features/song/SongLyrics";
+import ResultsContextProvider from "./components/wrappers/ResultsContext";
 import Header from "./components/elem/Header";
 
 export default function App() {
   return (
     <>
       <Header />
-      <Router>
-        <Switch>
-          <Route exact path="/" component={ArtistSearch} />
-          <Route path="/artists/:artist/:artistId" component={Releases} />
-          <Route path="/songs/:artist/:releaseId" component={Songs} />
-          <Route path="/lyrics/:artist/:title" component={Lyrics} />
-        </Switch>
-      </Router>
+      <div className="pageContent">
+        <Router>
+          <Switch>
+            <ResultsContextProvider>
+              <Route exact path="/" component={ArtistSearch} />
+              <Route path="/artists/:artist/:artistId" component={Releases} />
+              <Route path="/songs/:artist/:releaseId" component={Songs} />
+              <Route path="/lyrics/:artist/:title" component={Lyrics} />
+            </ResultsContextProvider>
+          </Switch>
+        </Router>
+      </div>
     </>
   );
 }
