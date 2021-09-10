@@ -1,11 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { ArtistSearch } from "./components/features/artist/ArtistSearch";
-import { Releases } from "./components/features/release/Releases";
-import { Songs } from "./components/features/song/Songs";
-import { Lyrics } from "./components/features/song/SongLyrics";
 import ResultsContextProvider from "./components/wrappers/ResultsContext";
 import Header from "./components/elem/Header";
+import ResultPanel from "./components/features/ResultPanel";
 
 export default function App() {
   return (
@@ -14,12 +11,19 @@ export default function App() {
       <div className="pageContent">
         <Router>
           <Switch>
-            <ResultsContextProvider>
-              <Route exact path="/" component={ArtistSearch} />
-              <Route path="/artists/:artist/:artistId" component={Releases} />
-              <Route path="/songs/:artist/:releaseId" component={Songs} />
-              <Route path="/lyrics/:artist/:title" component={Lyrics} />
-            </ResultsContextProvider>
+            <Route
+              exact
+              path={[
+                "/",
+                "/:artist",
+                "/:artist/:release",
+                "/:artist/:release/:title",
+              ]}
+            >
+              <ResultsContextProvider>
+                <ResultPanel />
+              </ResultsContextProvider>
+            </Route>
           </Switch>
         </Router>
       </div>
