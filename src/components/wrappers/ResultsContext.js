@@ -1,100 +1,163 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useMemo } from "react";
 import withConfig from "./withConfig";
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useParams } from "react-router-dom";
 
 const ResultsContext = createContext(null);
 
 const ResultsContextProvider = ({ config, children }) => {
-  const { API_URL } = config;
-  const [searchTerm, setSearchTerm] = useState('')
+  const { API_URL, LYRICS_URL } = config;
   const [artists, setArtists] = useState([]);
   const [releases, setReleases] = useState([]);
-  const [releaseId, setReleaseId] = useState(''); //do this like dashboard later
-  const [songs, setSongs] = useState([]);
+  const [titles, setTitles] = useState([]);
   const [lyrics, setLyrics] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const {
-    artist, 
-    artistId
-} = useParams()
+  const { artist, release, title } = useParams();
 
-console.log(useLocation(), "params")
 
-console.log(artist, artistId, "artist")
 
+  const useQuery = () => new URLSearchParams(useLocation().search);
+  const query = useQuery();
+  const searchTerm = query.get("artist");
+
+  const artistObject = useMemo(() => {
+    return artist && artists.length
+      ? artists.filter((x) => x.name === artist.replace("%2F", "/"))[0]
+      : null;
+  }, [artist]);
+
+  const releaseObject = useMemo(() => {
+    return release && releases.length
+      ? releases.filter((x) => x.title === release.replace("%2F", "/"))[0]
+      : null;
+  }, [release]);
+
+  // console.log(params, location, "params, location")
 
   useEffect(() => {
-    if(searchTerm === ''){ //do this qith query params? 
-        setArtists([])
+    if (!searchTerm || searchTerm === "") {
+      //do this qith query params?
+      setArtists([]);
     }
-    if(searchTerm !== '') {
-    setLoading(true);
-    fetch(`${API_URL}artist?query=${searchTerm}&fmt=json&limit=25`)
-      .then(async (response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          const error = await response.text();
-          throw new Error(error);
-        }
-      })
-      .then((response) => {
-        setArtists(response.artists)
-      })
-      .catch((e) => {
-        console.log(
-          "Workflow Landing Page:" +
-            (e.message ? e.message : "Unable to connect to the server")
-        );
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (searchTerm && searchTerm !== "") {
+      setLoading(true);
+      fetch(`${API_URL}artist?query=${searchTerm}&fmt=json&limit=25`)
+        .then(async (response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            const error = await response.text();
+            throw new Error(error);
+          }
+        })
+        .then((response) => {
+          setArtists(response.artists);
+        })
+        .catch((e) => {
+          console.log(
+            "Workflow Landing Page:" +
+              (e.message ? e.message : "Unable to connect to the server")
+          );
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
-
-    
   }, [API_URL, searchTerm]);
 
   useEffect(() => {
-    if(releaseId !== '') {
-    setLoading(true);
-    fetch(`${API_URL}recording?release=${releaseId}&fmt=json`)
-      .then(async (response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          const error = await response.text();
-          throw new Error(error);
-        }
-      })
-      .then((response) => {
-        setSongs(response.recordings)
-      })
-      .catch((e) => {
-        console.log(
-          "Workflow Landing Page:" +
-            (e.message ? e.message : "Unable to connect to the server")
-        );
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (artistObject && artistObject.id) {
+      setLoading(true);
+      fetch(`${API_URL}release?artist=${artistObject.id}&fmt=json`)
+        .then(async (response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            const error = await response.text();
+            throw new Error(error);
+          }
+        })
+        .then((response) => {
+          setReleases(response.releases);
+        })
+        .catch((e) => {
+          console.log(
+            "Workflow Landing Page:" +
+              (e.message ? e.message : "Unable to connect to the server")
+          );
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
+  }, [API_URL, artist, artistObject]);
 
-    
-  }, [API_URL, releaseId]);
+  useEffect(() => {
+    if (releaseObject && releaseObject.id) {
+      setLoading(true);
+      fetch(`${API_URL}recording?release=${releaseObject.id}&fmt=json`)
+        .then(async (response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            const error = await response.text();
+            throw new Error(error);
+          }
+        })
+        .then((response) => {
+          setTitles(response.recordings);
+        })
+        .catch((e) => {
+          console.log(
+            "Workflow Landing Page:" +
+              (e.message ? e.message : "Unable to connect to the server")
+          );
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [API_URL, releaseObject]);
 
+  useEffect(() => {
+    if (title && artist) {
+      setLoading(true);
+      fetch(`${LYRICS_URL}${artist}/${title}`)
+        .then(async (response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            const error = await response.text();
+            throw new Error(error);
+          }
+        })
+        .then((response) => {
+          setLyrics(response.lyrics);
+        })
+        .catch((e) => {
+          console.log(
+            "Workflow Landing Page:" +
+              (e.message ? e.message : "Unable to connect to the server")
+          );
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [API_URL, title]);
 
   return (
     <ResultsContext.Provider
       value={{
         loading,
         searchTerm,
-        setSearchTerm,
-        artists, 
-        setReleaseId, 
-        songs
+        artists,
+        releases,
+        titles,
+        lyrics,
+        artist,
+        release,
+        title,
       }}
     >
       {children}
